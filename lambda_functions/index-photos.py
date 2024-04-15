@@ -7,7 +7,6 @@ import logging
 #from elasticsearch import Elasticsearch
 logging.basicConfig(level=logging.DEBUG)
 
-
 key = '<>'
 secret= '<>'
 awsauth = AWS4Auth(key,secret,'us-east-1','es')
