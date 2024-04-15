@@ -4,7 +4,6 @@ from urllib import request, parse
 from requests_aws4auth import AWS4Auth
 import requests
 import logging
-#from elasticsearch import Elasticsearch
 logging.basicConfig(level=logging.DEBUG)
 
 key = '<>'
