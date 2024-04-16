@@ -1,0 +1,25 @@
+version: 0.2
+
+phases:
+  install:
+    commands:
+      - echo "No dependencies to install."
+  pre_build:
+    commands:
+      - echo "No tests to run."
+  build:
+    commands:
+      - echo "No build steps required for static HTML."
+  post_build:
+    commands:
+      - echo "Deploying to S3 bucket..."
+      - aws s3 sync 'front-end/Gallery AI/.' s3://cs-gy-9223-bucket1/ --acl public-read
+
+artifacts:
+  files:
+    - '**/*'
+  base-directory: '.'
+
+cache:
+  paths:
+    - 'None'
