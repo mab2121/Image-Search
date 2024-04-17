@@ -29,15 +29,15 @@ def lambda_handler(event, context):
     print('bucket name: ',bucket_name)
     print('object_key: ',object_key)
     
-    # Step i: Detect labels in the image using Rekognition
+    # Detect labels in the image using Rekognition
     rekognition_response = rekognition_client.detect_labels(
         Image={'S3Object': {'Bucket': bucket_name, 'Name': object_key}},
-        MaxLabels=10  # You can adjust the number of labels as needed
+        MaxLabels=10 
     )
     print('rekog-resp: ', rekognition_response)
     detected_labels = [label['Name'] for label in rekognition_response['Labels']]
     
-    # Step ii: Retrieve the S3 metadata
+    # Retrieve the S3 metadata
     s3_metadata_response = s3_client.head_object(Bucket=bucket_name, Key=object_key)
     custom_labels = s3_metadata_response.get('Metadata', {}).get('x-amz-meta-customlabels', '[]')
     custom_labels_array = json.loads(custom_labels)
@@ -55,7 +55,6 @@ def lambda_handler(event, context):
         "labels": all_labels
     }
 
-    # Elasticsearch URL for indexing
     url = f'https://{es_host}/{es_index}/{es_type}'  # Adjust if you have a specific document ID
 
     # Make the POST request to index the document
